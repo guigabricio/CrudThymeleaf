@@ -8,3 +8,12 @@ CREATE TABLE tarefas (
   concluida BIT DEFAULT FALSE
 );
  
+ 
+DROP TABLE IF EXISTS usuarios;
+ 
+CREATE TABLE usuarios (
+  id INT PRIMARY KEY AUTO_INCREMENT  ,
+  email VARCHAR(100) NOT NULL,
+  senha VARCHAR(100) not NULL
+);
+ 
