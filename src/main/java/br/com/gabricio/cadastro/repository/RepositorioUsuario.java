@@ -2,10 +2,10 @@ package br.com.gabricio.cadastro.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import br.com.gabricio.cadastro.models.Usuarios;
+import br.com.gabricio.cadastro.models.Usuario;
 
-public interface RepositorioUsuario extends JpaRepository<Usuarios, Long>{
+public interface RepositorioUsuario extends JpaRepository<Usuario, Long>{
 	
-	Usuarios findByEmail(String email);
+	Usuario findByEmail(String email);
 
 }

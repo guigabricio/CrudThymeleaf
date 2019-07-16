@@ -4,98 +4,92 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 @Entity
-@Table(name = "tarefas")
+@Table(name = "tar_tarefas")
 public class Tarefa {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "tar_id")
+    private Long id;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Long id;
-	
-	@Column(name = "titulo", length = 50, nullable = false)
-	@NotNull(message="O título é obrigatório")
-	@Length(max=50, min = 3, message = "O título deve conter entre 3 a 50 caracteres")
-	private String titulo;
-	
-	@Column(name = "descricao", length = 100, nullable = true)
-	@Length(max = 100, min = 3, message = "O descrição deve conter entre 3 a 100 caracteres")
-	private String descricao;
-	
-	@Column(name = "data_expiracao", nullable = false)
-	
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date dataExpiracao;
-	
-	@Column(name = "concluida", nullable = false)
-	private Boolean concluida = false;
+    @Column(name = "tar_titulo", length = 50, nullable = false)
+    @NotNull(message = "O título é obrigatório")
+    @Length(max = 50, min = 3, message = "O título deve conter entre 3 e 50 caracteres")
+    private String titulo;
 
-	public Tarefa() {
-		super();
-	}
+    @Column(name = "tar_descricao", length = 100, nullable = true)
+    @Length(max = 100, message = "A descrição deve conter até 100 caracteres")
+    private String descricao;
 
-	public Tarefa(Long id,
-			@NotNull(message = "O título é obrigatório") @Length(max = 50, min = 3, message = "O título deve conter entre 3 a 50 caracteres") String titulo,
-			@Length(max = 100, min = 3, message = "O descrição deve conter entre 3 a 100 caracteres") String descricao,
-			Date dataExpiracao, Boolean concluida) {
-		super();
-		this.id = id;
-		this.titulo = titulo;
-		this.descricao = descricao;
-		this.dataExpiracao = dataExpiracao;
-		this.concluida = concluida;
-	}
+    @Column(name = "tar_data_expiracao", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dataExpiracao;
+
+    @Column(name = "tar_concluida", nullable = false)
+    private Boolean concluida = false;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = " usr_id")
+    private Usuario usuario;
 
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Date getDataExpiracao() {
+        return dataExpiracao;
+    }
 
-	public String getTitulo() {
-		return titulo;
-	}
+    public void setDataExpiracao(Date dataExpiracao) {
+        this.dataExpiracao = dataExpiracao;
+    }
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
+    public Boolean getConcluida() {
+        return concluida;
+    }
 
-	public String getDescricao() {
-		return descricao;
-	}
+    public void setConcluida(Boolean concluida) {
+        this.concluida = concluida;
+    }
 
-	public void setDescricao(String descricao) {
-		this.descricao = descricao;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public Date getDataExpiracao() {
-		return dataExpiracao;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setDataExpiracao(Date dataExpiracao) {
-		this.dataExpiracao = dataExpiracao;
-	}
+    public String getTitulo() {
+        return titulo;
+    }
 
-	public Boolean getConcluida() {
-		return concluida;
-	}
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
 
-	public void setConcluida(Boolean concluida) {
-		this.concluida = concluida;
-	}
+    public String getDescricao() {
+        return descricao;
+    }
 
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
 }
